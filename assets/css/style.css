@@ -8,12 +8,6 @@ body {
 .jumbotron {
   text-align: center;
   background-color: transparent;
-  border-radius: 0;
-  /* border-bottom: 10px solid black; */
-}
-
-.description{
-  white-space: pre-wrap;
 }
 
 .time-block{
@@ -27,20 +21,7 @@ body {
   border-top: 1px solid white;;
 }
 
-.past {
-  background-color: #d3d3d3;
-  color: white;
-}
 
-.present {
-  background-color: #ff6961;
-  color: white;
-}
-
-.future {
-  background-color: #77dd77;
-  color: white;
-}
 
 .saveBtn {
   border-left: 1px solid black;
@@ -57,8 +38,19 @@ body {
 
 .block{
   height: 7em;
-  background-color: #d6f5ff; 
   border: 2px solid white;
+}
+
+.past {
+  background-color: #ebebeb;
+}
+
+.present {
+  background-color:#a6f0f9;
+}
+
+.future {
+  background-color: #d6f5ff; 
 }
 
 .block-hour{
@@ -68,6 +60,7 @@ body {
 }
 
 .block-events{
+  white-space: pre-wrap;
   height: 100%;
   font-size: 16px;
   padding: 10px;
@@ -95,6 +88,10 @@ textarea{
 
 .block-save:hover{
   background-color:  #00a2ff;
+}
+
+.fas{
+  color: white;
 }
 
 

@@ -40,14 +40,24 @@ for (i in hoursArray){
 
 
   // Color each block if hour by past, present or future
-  currentHour = moment().format('HA');
-  currentIndex = hoursArray.indexOf(currentHour);
+  currentHour = moment().format('hA');
+  partOfDay = moment().format('A');
+  
+  if (hoursArray.includes(currentHour) == true) {
+    currentIndex = hoursArray.indexOf(currentHour);
+  } else {
+    currentIndex = partOfDay;
+  }
 
-  if (i < currentIndex){
+  if (currentIndex == "AM") {
+    $("#" + hoursArray[i]).addClass('future')
+  } else if (currentIndex == "PM"){
     $("#" + hoursArray[i]).addClass('past')
-  }else if (i == currentIndex){
+  } else if (i < currentIndex){
+    $("#" + hoursArray[i]).addClass('past')
+  } else if (i == currentIndex){
     $("#" + hoursArray[i]).addClass('present')
-  }else{
+  } else {
     $("#" + hoursArray[i]).addClass('future')
   }
 

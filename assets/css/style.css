@@ -95,4 +95,20 @@ textarea{
 }
 
 
+@media screen and (max-width: 575px) {
+  body {
+    font-size: 13px;
+  }
+  
+  h4{
+    font-size: 13px;
+  }
 
+  .block{
+    height: 12em;
+  }
+
+  .block-hour, .block-events, .block-save{
+    padding: 3px;
+  }
+}

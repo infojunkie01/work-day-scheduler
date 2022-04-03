@@ -1,12 +1,30 @@
 // make sure on refresh it shows
+// test when text changed and update
 // ? adjust height of block if overspill?
 // ? Create better array of hours?
-// sort array?
+
 
 // Create array of hours from 9am to 5pm
 hoursArray = ['9AM','10AM','11AM','12PM','1PM','2PM','3PM','4PM','5PM'];
 
-eventsArray  = [];
+
+var loadEvents = function() {
+  eventsArray = JSON.parse(localStorage.getItem("eventsArray"));
+
+  // if nothing in localStorage, create eventsArray to store
+  if (!eventsArray) {
+  
+    eventsArray = {};
+
+   for (i in hoursArray) {
+    eventsArray[hoursArray[i]] = "";
+   }
+ 
+  }
+};
+
+loadEvents();
+
 
 for (i in hoursArray){
   // Adds current date
@@ -23,9 +41,16 @@ for (i in hoursArray){
   .addClass("block-hour col-2")
   .text(hoursArray[i]);
 
+  if (eventsArray[hoursArray[i]] != "" ){
+    eventsTextOnLoad = eventsArray[hoursArray[i]];
+    console.log(eventsTextOnLoad)
+  } else {
+    eventsTextOnLoad = ""
+  }
+
   var events = $("<p>")
   .addClass("block-events col-9")
-  .text("");
+  .text(eventsTextOnLoad);
 
   var save = $("<button>")
   .addClass("block-save col-1");
@@ -64,30 +89,6 @@ for (i in hoursArray){
 }
 
 
-var loadEvents = function() {
-  events = JSON.parse(localStorage.getItem("events"));
-
-  // if nothing in localStorage, create a new object to track all task status arrays
-  if (!events) {
-    events = {
-    };
-  }
-
-  // loop over object properties
-  $.each(events, function(list, arr) {
-    // then loop over sub-array
-    arr.forEach(function(event) {
-      createTask(event.text, event.date, list);
-    });
-  });
-};
-
-var saveEvents = function() {
-  localStorage.setItem("eventsArray", JSON.stringify(eventsArray));
-};
-
-
-
 // replace p element with a new textarea
 $("#schedule").on("click", "p", function() {
   var text = $(this).text().trim();
@@ -121,10 +122,7 @@ $(".block-save").click(function() {
   eventsText = $("#" + hour + " p").text();
 
   // Push to eventsArray and save to local storage
-  eventsArray.push({
-    hour: hour,
-    text: eventsText
-  })
+  eventsArray[hour] = eventsText;
 
   saveEvents();
 
@@ -153,4 +151,9 @@ var auditTask = function(taskEl) {
     $(taskEl).addClass("list-group-item-warning");
   }
 };
+
+var saveEvents = function() {
+  localStorage.setItem("eventsArray", JSON.stringify(eventsArray));
+};
+
 

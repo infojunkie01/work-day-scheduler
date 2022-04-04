@@ -1,13 +1,7 @@
-// make sure on refresh it shows
-// test when text changed and update
-// ? adjust height of block if overspill?
-// ? Create better array of hours?
-
-
 // Create array of hours from 9am to 5pm
 hoursArray = ['9AM','10AM','11AM','12PM','1PM','2PM','3PM','4PM','5PM'];
 
-
+// load eventsArray
 var loadEvents = function() {
   eventsArray = JSON.parse(localStorage.getItem("eventsArray"));
 
@@ -25,7 +19,7 @@ var loadEvents = function() {
 
 loadEvents();
 
-
+// Create each row for each hour and elements in each
 for (i in hoursArray){
   // Adds current date
   currentDate = moment().format('dddd, MMMM Do YYYY');  
@@ -116,7 +110,7 @@ $("#schedule").on("blur", "textarea", function(){
 });
 
 
-
+// Save text when clicking save button
 $(".block-save").click(function() {
   hour = $(this).parent().attr('id');
   eventsText = $("#" + hour + " p").text();
@@ -128,30 +122,7 @@ $(".block-save").click(function() {
 
 });
 
-
-
-
-var auditTask = function(taskEl) {
-  // get date from task element
-  var date = $(taskEl)
-    .find("span")
-    .text()
-    .trim();
-
-  // convert to moment object at 5:00pm
-  var time = moment(date, "L").set("hour", 17);
-
-  // remove any old classes from element
-  $(taskEl).removeClass("list-group-item-warning list-group-item-danger");
-
-  // apply new class if task is near/over due date
-  if (moment().isAfter(time)) {
-    $(taskEl).addClass("list-group-item-danger");
-  } else if (Math.abs(moment().diff(time, "days")) <= 2) {
-    $(taskEl).addClass("list-group-item-warning");
-  }
-};
-
+// Save to local storage
 var saveEvents = function() {
   localStorage.setItem("eventsArray", JSON.stringify(eventsArray));
 };
